@@ -1,35 +1,78 @@
 // Wire widths
-`define WORD_LEN 32
-`define REG_FILE_ADDR_LEN 5
+// `define WORD_LEN 32
+// `define REG_FILE_ADDR_LEN 5
+// `define EXE_CMD_LEN 4
+// `define FORW_SEL_LEN 2
+// `define OP_CODE_LEN 6
+
+`define WORD_LEN 16
+`define REG_FILE_ADDR_LEN 4
 `define EXE_CMD_LEN 4
 `define FORW_SEL_LEN 2
-`define OP_CODE_LEN 6
+`define OP_CODE_LEN 4
 
 // Memory constants
+// `define DATA_MEM_SIZE 1024
+// `define INSTR_MEM_SIZE 1024
+// `define REG_FILE_SIZE 32
+// `define MEM_CELL_SIZE 8
+
 `define DATA_MEM_SIZE 1024
 `define INSTR_MEM_SIZE 1024
-`define REG_FILE_SIZE 32
-`define MEM_CELL_SIZE 8
+`define REG_FILE_SIZE 16
+`define MEM_CELL_SIZE 4
+
+
+
 
 // To be used inside controller.v
-`define OP_NOP 6'b000000
-`define OP_ADD 6'b000001
-`define OP_SUB 6'b000011
-`define OP_AND 6'b000101
-`define OP_OR 6'b000110
-`define OP_NOR 6'b000111
-`define OP_XOR 6'b001000
-`define OP_SLA 6'b001001
-`define OP_SLL 6'b001010
-`define OP_SRA 6'b001011
-`define OP_SRL 6'b001100
-`define OP_ADDI 6'b100000
-`define OP_SUBI 6'b100001
-`define OP_LD 6'b100100
-`define OP_ST 6'b100101
-`define OP_BEZ 6'b101000
-`define OP_BNE 6'b101001
-`define OP_JMP 6'b101010
+// `define OP_NOP 6'b000000
+// `define OP_ADD 6'b000001
+// `define OP_SUB 6'b000011
+// `define OP_AND 6'b000101
+// `define OP_OR 6'b000110
+// `define OP_NOR 6'b000111
+// `define OP_XOR 6'b001000
+// `define OP_SLA 6'b001001
+// `define OP_SLL 6'b001010
+// `define OP_SRA 6'b001011
+// `define OP_SRL 6'b001100
+// `define OP_ADDI 6'b100000
+// `define OP_SUBI 6'b100001
+// `define OP_LD 6'b100100
+// `define OP_ST 6'b100101
+// `define OP_BEZ 6'b101000
+// `define OP_BNE 6'b101001
+// `define OP_JMP 6'b101010
+
+// `define OP_NOP 6'b000000 no op
+`define OP_ADD 4'b0000
+`define OP_ADD_BASE 4'b0001
+`define OP_SUB 4'b0010
+`define OP_ADDI 4'b0011
+`define OP_MULT 4'b0100
+`define OP_AND 4'b0101
+`define OP_SLL 4'b0110
+`define OP_LW 4'b0111
+`define OP_LWI 4'b1000
+`define OP_SW 4'b1001
+`define OP_SWI 4'b1010
+`define OP_CLR 4'b1011
+`define OP_MOVI 4'b1100
+`define OP_CMP 4'b1101
+`define OP_BNE 4'b1110
+`define OP_JMP 4'b1111
+// `define OP_OR 6'b000110
+// `define OP_NOR 6'b000111
+// `define OP_XOR 6'b001000
+// `define OP_SLA 6'b001001
+// `define OP_SRA 6'b001011
+// `define OP_SRL 6'b001100
+// `define OP_SUBI 6'b100001
+// `define OP_LD 6'b100100
+// `define OP_ST 6'b100101
+// `define OP_BEZ 6'b101000
+// `define OP_JMP 6'b101010
 
 // To be used in side ALU
 `define EXE_ADD 4'b0000
