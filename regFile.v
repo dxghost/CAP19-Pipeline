@@ -15,7 +15,11 @@ module regFile (clk, rst, src1, src2, dest, writeVal, writeEn, reg1, reg2);
         regMem[i] <= 0;
 	    end
 
-    else if (writeEn) regMem[dest] <= writeVal;
+    else if (writeEn)
+      begin
+      // $monitor("writeEn is enabled");
+      regMem[dest] <= writeVal;
+      end
     regMem[0] <= 0;
   end
 

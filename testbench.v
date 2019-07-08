@@ -6,7 +6,11 @@ module testbench ();
 
   initial begin
     clk=1;
-    repeat(5000) #50 clk=~clk ;
+    repeat(200)
+    begin
+      #50 clk=~clk ;
+      // $monitor("clock is at: %5d",clk);
+    end
   end
 
   initial begin

@@ -33,6 +33,7 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		// OUTPUTS
 		.reg1(reg1_ID),
 		.reg2(reg2_ID)
+		
 	);
 
 	hazard_detection hazard (
