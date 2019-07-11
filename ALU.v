@@ -15,7 +15,6 @@ module ALU (val1, val2, EXE_CMD, aluOut,SLLAmount);
       `EXE_AND: 
         begin 
           aluOut = val1 & val2;
-          $display("and result =  %b",aluOut);
         end
       `EXE_OR: aluOut <= val1 | val2;
       `EXE_NOR: aluOut <= ~(val1 | val2);
@@ -23,15 +22,12 @@ module ALU (val1, val2, EXE_CMD, aluOut,SLLAmount);
       `EXE_SLL:
         begin
           aluOut = val1 << SLLAmount;
-          $display("SLL result = %b",aluOut);
         end
        // `EXE_SLL: aluOut <= val1 <<< val2;
       `EXE_SRA: aluOut <= val1 >> val2;
       `EXE_SRL: aluOut <= val1 >>> val2;
-      `EXE_MULT: begin multProduct = val1 *val2; HI = multProduct[31:16]; LO = multProduct[15:0];$display("HI and LO : %b  %b",HI,LO); end 
-
+      `EXE_MULT: begin multProduct = val1 *val2; HI = multProduct[31:16]; LO = multProduct[15:0];end 
       default: aluOut <= 0;
     endcase
-    $display("aluout is %b : ",aluOut);
   end
 endmodule // ALU

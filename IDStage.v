@@ -84,4 +84,11 @@ module IDStage (clk,SLLAmount, rst, hazard_detected_in, is_imm_out, ST_or_BNE_ou
   assign ST_or_BNE_out = ST_or_BNE;
   assign branch_comm = CU2Cond;
   assign SLLAmount = signExt2Mux;
+
+
+  always @(clk) begin
+    $display("---------------- ID Stage ----------------");
+    $display("brTaken = %b\njumpEnable = %b\nval1 = %b\nsrc1 = %b\ncustomdest = %b\nis_imm_out = %b\ninstruction = %b"
+            , brTaken,jumpEnable,val1,src1,customdest,is_imm_out, instruction);
+  end
 endmodule // IDStage

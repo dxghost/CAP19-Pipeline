@@ -10,6 +10,7 @@ module instructionMem (rst, addr, instruction);
 
   always @ (*) begin
   	if (rst) begin
+
         // instMem[0] <= 4'b0011; //-- Add	A2,A3
         // instMem[1] <= 4'b0010;
         // instMem[2] <= 4'b0000;
@@ -70,4 +71,8 @@ module instructionMem (rst, addr, instruction);
     end
 
   assign instruction = {instMem[address], instMem[address + 1], instMem[address + 2], instMem[address + 3]};
+  always @(addr) begin
+      $display("---------------- Istruction Memory ----------------");
+      $display("|Instruction = %b   |\n|PC          = %\d              |", instruction,addr);
+  end
 endmodule // insttructionMem

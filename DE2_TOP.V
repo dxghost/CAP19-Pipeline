@@ -32,8 +32,8 @@ module DE2_TOP
 		DRAM_LDQM,						//	SDRAM Low-byte Data Mask
 		DRAM_UDQM,						//	SDRAM High-byte Data Mask
 		DRAM_WE_N,						//	SDRAM Write Enable
-		DRAM_CAS_N,						//	SDRAM Column Address Strobe
-		DRAM_RAS_N,						//	SDRAM Row Address Strobe
+		DRAM_CAS_N,						//	SDRAM Column Address display
+		DRAM_RAS_N,						//	SDRAM Row Address display
 		DRAM_CS_N,						//	SDRAM Chip Select
 		DRAM_BA_0,						//	SDRAM Bank Address 0
 		DRAM_BA_1,						//	SDRAM Bank Address 0
@@ -160,8 +160,8 @@ output  [11:0]	DRAM_ADDR;				//	SDRAM Address bus 12 Bits
 output			DRAM_LDQM;				//	SDRAM Low-byte Data Mask
 output			DRAM_UDQM;				//	SDRAM High-byte Data Mask
 output			DRAM_WE_N;				//	SDRAM Write Enable
-output			DRAM_CAS_N;				//	SDRAM Column Address Strobe
-output			DRAM_RAS_N;				//	SDRAM Row Address Strobe
+output			DRAM_CAS_N;				//	SDRAM Column Address display
+output			DRAM_RAS_N;				//	SDRAM Row Address display
 output			DRAM_CS_N;				//	SDRAM Chip Select
 output			DRAM_BA_0;				//	SDRAM Bank Address 0
 output			DRAM_BA_1;				//	SDRAM Bank Address 0

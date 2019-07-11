@@ -16,7 +16,6 @@ module controller (opCode, branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE,
   integer F;
 
   always @ ( * ) begin
-  $monitor("instruction is %b : ",custominstruction);
     if (hazard_detected == 0) begin
       {branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE, WB_EN, MEM_R_EN, MEM_W_EN} <= 0;
       case (opCode)
@@ -42,9 +41,9 @@ module controller (opCode, branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE,
       `OP_CMP: 
         begin 
           F = src1 - src2;
-          if (F == 0)     begin $display("1"); Z = 1'b1;end
-          else if (F < 0) begin $display("2"); N = 1'b1; Z = 1'b0;end
-          else if (F > 0) begin $display("3"); Z = 1'b0; N = 1'b0;end
+          if (F == 0)     begin Z = 1'b1;end
+          else if (F < 0) begin N = 1'b1; Z = 1'b0;end
+          else if (F > 0) begin Z = 1'b0; N = 1'b0;end
           
         end
         `OP_BNE: begin EXE_CMD <= `EXE_NO_OPERATION; Is_Imm <= 1; Branch_command <= `COND_BNE; branchEn <= 1; end
@@ -56,7 +55,5 @@ module controller (opCode, branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE,
     else if (hazard_detected ==  1) begin
       {EXE_CMD, WB_EN, MEM_W_EN} <= 0;
     end
-    $display("Z value : ", Z);
-    $display("N value : ", N);
   end
 endmodule // controller

@@ -6,9 +6,10 @@ module testbench ();
 
   initial begin
     clk=1;
-    repeat(400)
+    repeat(30)
     begin
       #50 clk=~clk ;
+      $display("\n\n#################################### clock changed ####################################");
     end
   end
 

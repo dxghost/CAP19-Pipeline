@@ -19,14 +19,10 @@ module EXE2MEM (clk, rst, WB_EN_IN, MEM_R_EN_IN, MEM_W_EN_IN, PCIn, ALUResIn, ST
 
   always @ (posedge clk) begin
     if (rst) begin
-      // $monitor("EXE/MEM : reset = 1;\n WB_EN_IN : %b,\n MEM_R_EN_IN : %b,\n MEM_W_EN_IN : %b,\n PCIn : %b,\n destIn : %b,\n ALUResIn : %b,\n STValIn : %b\nend EXE/MEM\n"
-      // ,WB_EN_IN,MEM_R_EN_IN,MEM_W_EN_IN,PCIn,destIn,ALUResIn,STValIn);
       {WB_EN, MEM_R_EN, MEM_W_EN, PC, ALURes, STVal, dest} <= 0;
     end
     else begin
       customdest<=customdestin;
-      // $monitor("EXE/MEM:\n WB_EN_IN : %b,\n MEM_R_EN_IN : %b,\n MEM_W_EN_IN : %b,\n PCIn : %b,\n destIn : %b,\n ALUResIn : %b,\n STValIn : %b\nend EXE/MEM\n"
-      // ,WB_EN_IN,MEM_R_EN_IN,MEM_W_EN_IN,PCIn,destIn,ALUResIn,STValIn);
       WB_EN <= WB_EN_IN;
       MEM_R_EN <= MEM_R_EN_IN;
       MEM_W_EN <= MEM_W_EN_IN;
