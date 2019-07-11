@@ -41,7 +41,8 @@ module ID2EXE (clk, rst, destIn, reg2In, val1In, val2In, PCIn, EXE_CMD_IN, MEM_R
       brTaken_out <= brTaken_in;
       src1_out <= src1_in;
       src2_out <= src2_in;
-      // $monitor("the val 2 is %b")
+      
     end
+
   end
 endmodule // ID2EXE

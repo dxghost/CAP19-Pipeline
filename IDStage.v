@@ -42,6 +42,7 @@ module IDStage (clk, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruc
     .in2(signExt2Mux),
     .sel(Is_Imm),
     .out(val2)
+    
   );
 
   mux #(.LENGTH(`REG_FILE_ADDR_LEN)) mux_src2_forw ( // determins the register source 2 for forwarding
@@ -62,6 +63,9 @@ module IDStage (clk, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruc
     .cuBranchComm(CU2Cond),
     .brCond(Cond2and)
   );
+  always @ ( val2 ) begin
+    $monitor("Mux output is : ",val2);
+  end
   assign customdest = src1;
 
   assign brTaken = CU2and && Cond2and;

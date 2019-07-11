@@ -10,36 +10,45 @@ module instructionMem (rst, addr, instruction);
 
   always @ (*) begin
   	if (rst) begin
-        instMem[0] <= 4'b0011; //-- Add	A2,A3
-        instMem[1] <= 4'b0010;
-        instMem[2] <= 4'b0000;
-        instMem[3] <= 4'b0001;
-
-        // instMem[4] <= 4'b0011; //-- Add	A2,A3
-        // instMem[5] <= 4'b0000;
-        // instMem[6] <= 4'b0000;
-        // instMem[7] <= 4'b0001;
+        // instMem[0] <= 4'b0011; //-- Add	A2,A3
+        // instMem[1] <= 4'b0010;
+        // instMem[2] <= 4'b0000;
+        // instMem[3] <= 4'b0001;
 
         // instMem[4] <= 4'b0000; //-- Add	A2,A3
         // instMem[5] <= 4'b0010;
+        // instMem[6] <= 4'b0110;
+        // instMem[7] <= 4'b0000;
+
+        // instMem[4] <= 4'b0011; //-- Add	A2,A3
+        // instMem[5] <= 4'b0011;
         // instMem[6] <= 4'b0000;
-        // instMem[7] <= 4'b0001;
-
-
-        instMem[4] <= 4'b0011; //-- Add	A2,A3
-        instMem[5] <= 4'b0010;
-        instMem[6] <= 4'b0000;
-        instMem[7] <= 4'b0001;
+        // instMem[7] <= 4'b0011;
 
         instMem[8] <= 4'b0011; //-- Add	A2,A3
-        instMem[9] <= 4'b0010;
+        instMem[9] <= 4'b0011;
         instMem[10] <= 4'b0000;
-        instMem[11] <= 4'b0001;
+        instMem[11] <= 4'b0011;
 
-        instMem[12] <= 4'b0000; //-- Add	A2,A3
-        instMem[13] <= 4'b0010;
-        instMem[14] <= 4'b0110;
-        instMem[15] <= 4'b0000;
+        instMem[12] <= 4'b0011; //-- Add	A2,A3
+        instMem[13] <= 4'b0111;
+        instMem[14] <= 4'b0000;
+        instMem[15] <= 4'b0111;
+
+        instMem[16] <= 4'b0000; //-- Add	A2,A3
+        instMem[17] <= 4'b0011;
+        instMem[18] <= 4'b0111;
+        instMem[19] <= 4'b0001;
+
+        // instMem[8] <= 4'b0011; //-- Add	A2,A3
+        // instMem[9] <= 4'b0010;
+        // instMem[10] <= 4'b0000;
+        // instMem[11] <= 4'b0001;
+
+        // instMem[12] <= 4'b0000; //-- Add	A2,A3
+        // instMem[13] <= 4'b0010;
+        // instMem[14] <= 4'b0110;
+        // instMem[15] <= 4'b0000;
         
         // instMem[4] <= 4'b0011; //-- Add	A2,A3
         // instMem[5] <= 4'b0000;

@@ -6,7 +6,7 @@ module testbench ();
 
   initial begin
     clk=1;
-    repeat(300)
+    repeat(80)
     begin
       #50 clk=~clk ;
     end
@@ -14,8 +14,8 @@ module testbench ();
 
   initial begin
     rst = 1;
-    forwarding_EN = 1;
-    #10
+    forwarding_EN = 0;
+    #100
     rst = 0;
   end
 endmodule // test
