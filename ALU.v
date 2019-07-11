@@ -32,6 +32,6 @@ module ALU (val1, val2, EXE_CMD, aluOut,SLLAmount);
 
       default: aluOut <= 0;
     endcase
-    $monitor("aluout is %b : ",aluOut);
+    $display("aluout is %b : ",aluOut);
   end
 endmodule // ALU

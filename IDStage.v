@@ -47,7 +47,7 @@ module IDStage (clk,SLLAmount, rst, hazard_detected_in, is_imm_out, ST_or_BNE_ou
   );
 
   mux #(.LENGTH(`REG_FILE_ADDR_LEN)) mux_src2_forw ( // determins the register source 2 for forwarding
-    .in1(instruction[15:12]), // src2 = instruction[15:11]
+    .in1(instruction[7:4]), // src2 = instruction[15:11]
     .in2(4'b0),
     .sel(Is_Imm),
     .out(src2_forw)
@@ -65,11 +65,12 @@ module IDStage (clk,SLLAmount, rst, hazard_detected_in, is_imm_out, ST_or_BNE_ou
     .brCond(Cond2and)
   );
 
-  assign customdest = src1;
+  
 
   assign brTaken = CU2and && Cond2and;
   assign val1 = reg1;
   assign src1 = instruction[11:8];
+  assign customdest = src1;
   assign is_imm_out = Is_Imm;
   assign ST_or_BNE_out = ST_or_BNE;
   assign branch_comm = CU2Cond;

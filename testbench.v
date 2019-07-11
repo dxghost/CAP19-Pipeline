@@ -14,7 +14,7 @@ module testbench ();
 
   initial begin
     rst = 1;
-    forwarding_EN = 0;
+    forwarding_EN = 1;
     #100
     rst = 0;
   end

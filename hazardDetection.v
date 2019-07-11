@@ -11,7 +11,7 @@ module hazard_detection(forward_EN, is_imm, ST_or_BNE, src1_ID, src2_ID, dest_EX
 
   assign src2_is_valid =  (~is_imm) || ST_or_BNE;
 
-  assign exe_has_hazard = WB_EN_EXE && (src1_ID == dest_EXE || (src2_is_valid && src2_ID == dest_EXE));
+  assign exe_has_hazard = WB_EN_EXE && (src1_ID == dest_EXE || (src2_is_valid && src2_ID == dest_EXE) || (src1_ID==src2_is_valid && src1_ID ==src2_ID));
   assign mem_has_hazard = WB_EN_MEM && (src1_ID == dest_MEM || (src2_is_valid && src2_ID == dest_MEM));
 
   assign hazard = (exe_has_hazard || mem_has_hazard);

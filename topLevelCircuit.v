@@ -172,7 +172,7 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		.clk(clock),
 		.rst(rst),
 		// INPUTS
-		.destIn(inst_ID[10:7]),
+		.destIn(inst_ID[11:8]),
 		.src1_in(src1_ID),
 		.src2_in(src2_forw_ID),
 		.reg2In(reg2_ID),

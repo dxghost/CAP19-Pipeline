@@ -24,36 +24,76 @@ module instructionMem (rst, addr, instruction);
         // instMem[5] <= 4'b0011;
         // instMem[6] <= 4'b0000;
         // instMem[7] <= 4'b0011;
+      
 
         instMem[8] <= 4'b0011; //-- Add	A2,A3
-        instMem[9] <= 4'b0011;
+        instMem[9] <= 4'b0111;
         instMem[10] <= 4'b0000;
-        instMem[11] <= 4'b0100;
+        instMem[11] <= 4'b1110;
+
 
         instMem[12] <= 4'b0011; //-- Add	A2,A3
-        instMem[13] <= 4'b0111;
+        instMem[13] <= 4'b0000;
         instMem[14] <= 4'b0000;
-        instMem[15] <= 4'b0101;
+        instMem[15] <= 4'b0100;
+
+
+        instMem[16] <= 4'b0000; //-- Add	A2,A3
+        instMem[17] <= 4'b0011;
+        instMem[18] <= 4'b0000;
+        instMem[19] <= 4'b0100;
+
+
+
+        instMem[20] <= 4'b0000; //-- Add	A2,A3
+        instMem[21] <= 4'b0011;
+        instMem[22] <= 4'b0111;
+        instMem[23] <= 4'b0100;
+
+
+        // instMem[24] <= 4'b0000; //-- Add	A2,A3
+        // instMem[25] <= 4'b0010;
+        // instMem[26] <= 4'b0111;
+        // instMem[27] <= 4'b1000;
+
+
+
+
+        
+
+
+        
 
         // instMem[16] <= 4'b0000; //-- Add	A2,A3
         // instMem[17] <= 4'b0011;
         // instMem[18] <= 4'b0111;
-        // instMem[19] <= 4'b0001;
+        // instMem[19] <= 4'b0100;
 
-        instMem[20] <= 4'b0100; // -- Mult A3 , A7
-        instMem[21] <= 4'b0011;
-        instMem[22] <= 4'b0111;
-        instMem[23] <= 4'b0000;
+  
 
-        instMem[24] <= 4'b0110;
-        instMem[25] <= 4'b0111;
-        instMem[26] <= 4'b0000;
-        instMem[27] <= 4'b0100;
+        // instMem[20] <= 4'b0000; //-- Add	A2,A3
+        // instMem[21] <= 4'b0011;
+        // instMem[22] <= 4'b0111;
+        // instMem[23] <= 4'b0000;
 
-        instMem[28] <= 4'b0101;
-        instMem[29] <= 4'b0111;
-        instMem[30] <= 4'b0011;
-        instMem[31] <= 4'b0000;
+        // instMem[24] <= 4'b0000; //-- Add	A2,A3
+        // instMem[25] <= 4'b0011;
+        // instMem[26] <= 4'b0111;
+        // instMem[27] <= 4'b0000;
+        // instMem[20] <= 4'b0100; // -- Mult A3 , A7
+        // instMem[21] <= 4'b0011;
+        // instMem[22] <= 4'b0111;
+        // instMem[23] <= 4'b0000;
+
+        // instMem[24] <= 4'b0110;
+        // instMem[25] <= 4'b0111;
+        // instMem[26] <= 4'b0000;
+        // instMem[27] <= 4'b0100;
+
+        // instMem[28] <= 4'b0101;
+        // instMem[29] <= 4'b0111;
+        // instMem[30] <= 4'b0011;
+        // instMem[31] <= 4'b0000;
 
 
         // instMem[24] <= 4'b0011; //-- Add	A2,A3
