@@ -1,10 +1,12 @@
 `include "defines.v"
 
-module controller (opCode, branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE, WB_EN, MEM_R_EN, MEM_W_EN, hazard_detected,custominstruction);
+module controller (opCode, branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE, WB_EN, MEM_R_EN, MEM_W_EN, hazard_detected,custominstruction, jumpEnable);
+
   input hazard_detected;
   input [`OP_CODE_LEN-1:0] opCode;
   input [15:0] custominstruction;
   output reg branchEn;
+  output reg jumpEnable;
   output reg [`EXE_CMD_LEN-1:0] EXE_CMD;
   output reg [1:0] Branch_command;
   output reg Is_Imm, ST_or_BNE, WB_EN, MEM_R_EN, MEM_W_EN;
@@ -35,8 +37,8 @@ module controller (opCode, branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE,
         // branch operations
         // `OP_BEZ: begin EXE_CMD <= `EXE_NO_OPERATION; Is_Imm <= 1; Branch_command <= `COND_BEZ; branchEn <= 1; end
         `OP_BNE: begin EXE_CMD <= `EXE_NO_OPERATION; Is_Imm <= 1; Branch_command <= `COND_BNE; branchEn <= 1; ST_or_BNE <= 1; end
-        `OP_JMP: begin EXE_CMD <= `EXE_NO_OPERATION; Is_Imm <= 1; Branch_command <= `COND_JUMP; branchEn <= 1; end
-        default: {branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE, WB_EN, MEM_R_EN, MEM_W_EN} <= 0;
+        `OP_JMP: begin EXE_CMD <= `EXE_NO_OPERATION; Is_Imm <= 1; Branch_command <= `COND_JUMP; branchEn <= 1; jumpEnable <= 1; end
+        default: {branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE, WB_EN, MEM_R_EN, MEM_W_EN,jumpEnable} <= 0;
       endcase
     end
 

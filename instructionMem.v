@@ -50,11 +50,16 @@ module instructionMem (rst, addr, instruction);
         instMem[22] <= 4'b0111;
         instMem[23] <= 4'b0100;
 
+        instMem[24] <= 4'b1111; //-- Add	A2,A3
+        instMem[25] <= 4'b0000;
+        instMem[26] <= 4'b0000;
+        instMem[27] <= 4'b0100;
 
-        // instMem[24] <= 4'b0000; //-- Add	A2,A3
-        // instMem[25] <= 4'b0010;
-        // instMem[26] <= 4'b0111;
-        // instMem[27] <= 4'b1000;
+
+        instMem[28] <= 4'b0011; //-- Add	A2,A3
+        instMem[29] <= 4'b1011;
+        instMem[30] <= 4'b1111;
+        instMem[31] <= 4'b1111;
 
 
 

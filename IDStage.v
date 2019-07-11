@@ -1,9 +1,9 @@
 `include "defines.v"
 
-module IDStage (clk,SLLAmount, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruction, reg1, reg2, src1, src2_reg_file, src2_forw, val1, val2, brTaken, EXE_CMD, MEM_R_EN, MEM_W_EN, WB_EN, branch_comm,customdest);
+module IDStage (clk,SLLAmount, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruction, reg1, reg2, src1, src2_reg_file, src2_forw, val1, val2, brTaken, EXE_CMD, MEM_R_EN, MEM_W_EN, WB_EN, branch_comm,customdest, jumpEnable);
   input clk, rst, hazard_detected_in;
   input [`WORD_LEN-1:0] instruction, reg1, reg2;
-  output brTaken, MEM_R_EN, MEM_W_EN, WB_EN, is_imm_out, ST_or_BNE_out;
+  output brTaken, MEM_R_EN, MEM_W_EN, WB_EN, is_imm_out, ST_or_BNE_out, jumpEnable;
   output [1:0] branch_comm;
   output [`EXE_CMD_LEN-1:0] EXE_CMD;
   output [`REG_FILE_ADDR_LEN-1:0] src1, src2_reg_file, src2_forw;
@@ -14,6 +14,7 @@ module IDStage (clk,SLLAmount, rst, hazard_detected_in, is_imm_out, ST_or_BNE_ou
   wire [1:0] CU2Cond;
   wire Is_Imm, ST_or_BNE;
   wire [`WORD_LEN-1:0] signExt2Mux;
+  wire jumpEnableWire;
 
   controller controller(
     // INPUT
@@ -21,6 +22,7 @@ module IDStage (clk,SLLAmount, rst, hazard_detected_in, is_imm_out, ST_or_BNE_ou
     .branchEn(CU2and),
     .custominstruction(instruction),
     // OUTPUT
+    .jumpEnable(jumpEnable),
     .EXE_CMD(EXE_CMD),
     .Branch_command(CU2Cond),
     .Is_Imm(Is_Imm),
@@ -68,6 +70,7 @@ module IDStage (clk,SLLAmount, rst, hazard_detected_in, is_imm_out, ST_or_BNE_ou
   
 
   assign brTaken = CU2and && Cond2and;
+  assign jumpEnable = jumpEnableWire;
   assign val1 = reg1;
   assign src1 = instruction[11:8];
   assign customdest = src1;

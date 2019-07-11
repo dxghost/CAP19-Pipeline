@@ -25,6 +25,7 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 	wire [`REG_FILE_ADDR_LEN-1:0] wire_customdest3;
 	wire [`REG_FILE_ADDR_LEN-1:0] wire_customdest4;
 	wire [7:0] SLLAmount;
+	wire jumpEnable;
 
 	regFile regFile(
 		// INPUTS
@@ -79,6 +80,7 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		// INPUTS
 		.clk(clock),
 		.rst(rst),
+		.jumpEnable(jumpEnable),
 		.freeze(hazard_detected),
 		.brTaken(Br_Taken_ID),
 		.brOffset(val2_ID),
@@ -96,6 +98,7 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		.reg1(reg1_ID),
 		.reg2(reg2_ID),
 		// OUTPUTS
+		.jumpEnable(jumpEnable),
 		.src1(src1_ID),
 		.src2_reg_file(src2_regFile_ID),
 		.src2_forw(src2_forw_ID),
