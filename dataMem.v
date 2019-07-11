@@ -17,6 +17,14 @@ module dataMem (clk, rst, writeEn, readEn, address, dataIn, dataOut);
       {dataMem[base_address], dataMem[base_address + 1], dataMem[base_address + 2], dataMem[base_address + 3]} <= dataIn;
   end
 
-  assign base_address = ((address & 32'b11111111111111111111101111111111) >> 2) << 2;
+
+
+  assign base_address = ((address & 16'b1111101111111111) >> 1) << 1;
   assign dataOut = (address < 1024) ? 0 : {dataMem[base_address], dataMem[base_address + 1], dataMem[base_address + 2], dataMem[base_address + 3]};
+  
+  always @(address) begin
+    $display("Address is : %b", address);
+    $display("Dataout is : %b", dataOut);
+    $display("Datain is : %b", dataIn);
+  end
 endmodule // dataMem

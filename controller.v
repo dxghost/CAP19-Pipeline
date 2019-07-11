@@ -36,15 +36,16 @@ module controller (opCode, branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE,
         `OP_ADDI: begin EXE_CMD <= `EXE_ADD; WB_EN <= 1; Is_Imm <= 1; end
         // `OP_SUBI: begin EXE_CMD <= `EXE_SUB; WB_EN <= 1; Is_Imm <= 1; end
         // memory operations
-        // `OP_LD: begin EXE_CMD <= `EXE_ADD; WB_EN <= 1; Is_Imm <= 1; ST_or_BNE <= 1; MEM_R_EN <= 1; end
-        // `OP_ST: begin EXE_CMD <= `EXE_ADD; Is_Imm <= 1; MEM_W_EN <= 1; ST_or_BNE <= 1; end
+        `OP_LW: begin EXE_CMD <= `EXE_ADD; WB_EN <= 1; Is_Imm <= 1; ST_or_BNE <= 1; MEM_R_EN <= 1; end
+        `OP_SW: begin EXE_CMD <= `EXE_ADD; Is_Imm <= 1; MEM_W_EN <= 1; ST_or_BNE <= 1; end
         // branch operations
       `OP_CMP: 
         begin 
           F = src1 - src2;
-          if (F == 0) begin $display("***"); Z = 1'b1;end
-          else if (F < 0) N = 1'b1;
-          else if (F > 0) begin Z = 1'b0; N = 1'b0;end
+          if (F == 0)     begin $display("1"); Z = 1'b1;end
+          else if (F < 0) begin $display("2"); N = 1'b1; Z = 1'b0;end
+          else if (F > 0) begin $display("3"); Z = 1'b0; N = 1'b0;end
+          
         end
         `OP_BNE: begin EXE_CMD <= `EXE_NO_OPERATION; Is_Imm <= 1; Branch_command <= `COND_BNE; branchEn <= 1; end
         `OP_JMP: begin EXE_CMD <= `EXE_NO_OPERATION; Is_Imm <= 1; Branch_command <= `COND_JUMP; branchEn <= 1; jumpEnable <= 1; end

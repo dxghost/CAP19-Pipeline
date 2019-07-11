@@ -42,9 +42,9 @@ module IFStage (clk, rst, brTaken, brOffset, freeze, PC, instruction, jumpEnable
   .out(PC)
 );
 
-  always @(*) begin
-    $display("jump enable is %b,pc is : %d" , jumpEnable,PC);
-  end
+  // always @(*) begin
+  //   $display("jump enable is %b,pc is : %d" , jumpEnable,PC);
+  // end
 
   assign brOffserTimes2 = brOffset << 1;
 endmodule // IFStage
