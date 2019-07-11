@@ -1,6 +1,6 @@
 `include "defines.v"
 
-module mux #(parameter integer LENGTH=15) (in1, in2, sel, out);
+module mux #(parameter integer LENGTH=16) (in1, in2, sel, out);
   input sel;
   input [LENGTH-1:0] in1, in2;
   output [LENGTH-1:0] out;
@@ -8,7 +8,7 @@ module mux #(parameter integer LENGTH=15) (in1, in2, sel, out);
   assign out = (sel == 0) ? in1 : in2;
 endmodule // mxu
 
-module mux_3input #(parameter integer LENGTH=15) (in1, in2, in3, sel, out);
+module mux_3input #(parameter integer LENGTH=16) (in1, in2, in3, sel, out);
   input [LENGTH-1:0] in1, in2, in3;
   input [1:0] sel;
   output [LENGTH-1:0] out;

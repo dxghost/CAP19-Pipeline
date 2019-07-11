@@ -1,6 +1,6 @@
 `include "defines.v"
 
-module IDStage (clk, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruction, reg1, reg2, src1, src2_reg_file, src2_forw, val1, val2, brTaken, EXE_CMD, MEM_R_EN, MEM_W_EN, WB_EN, branch_comm);
+module IDStage (clk, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruction, reg1, reg2, src1, src2_reg_file, src2_forw, val1, val2, brTaken, EXE_CMD, MEM_R_EN, MEM_W_EN, WB_EN, branch_comm,customdest);
   input clk, rst, hazard_detected_in;
   input [`WORD_LEN-1:0] instruction, reg1, reg2;
   output brTaken, MEM_R_EN, MEM_W_EN, WB_EN, is_imm_out, ST_or_BNE_out;
@@ -8,7 +8,7 @@ module IDStage (clk, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruc
   output [`EXE_CMD_LEN-1:0] EXE_CMD;
   output [`REG_FILE_ADDR_LEN-1:0] src1, src2_reg_file, src2_forw;
   output [`WORD_LEN-1:0] val1, val2;
-
+  output [`REG_FILE_ADDR_LEN-1:0] customdest;
   wire CU2and, Cond2and;
   wire [1:0] CU2Cond;
   wire Is_Imm, ST_or_BNE;
@@ -16,8 +16,9 @@ module IDStage (clk, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruc
 
   controller controller(
     // INPUT
-    .opCode(instruction[31:26]),
+    .opCode(instruction[15:12]),
     .branchEn(CU2and),
+    .custominstruction(instruction),
     // OUTPUT
     .EXE_CMD(EXE_CMD),
     .Branch_command(CU2Cond),
@@ -30,8 +31,8 @@ module IDStage (clk, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruc
   );
 
   mux #(.LENGTH(`REG_FILE_ADDR_LEN)) mux_src2 ( // determins the register source 2 for register file
-    .in1(instruction[15:11]),
-    .in2(instruction[25:21]),
+    .in1(instruction[7:4]),
+    .in2(instruction[11:8]),
     .sel(ST_or_BNE),
     .out(src2_reg_file)
   );
@@ -44,14 +45,14 @@ module IDStage (clk, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruc
   );
 
   mux #(.LENGTH(`REG_FILE_ADDR_LEN)) mux_src2_forw ( // determins the register source 2 for forwarding
-    .in1(instruction[15:11]), // src2 = instruction[15:11]
-    .in2(5'd0),
+    .in1(instruction[15:12]), // src2 = instruction[15:11]
+    .in2(4'b0),
     .sel(Is_Imm),
     .out(src2_forw)
   );
 
   signExtend signExtend(
-    .in(instruction[15:0]),
+    .in(instruction[7:0]),
     .out(signExt2Mux)
   );
 
@@ -61,10 +62,11 @@ module IDStage (clk, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruc
     .cuBranchComm(CU2Cond),
     .brCond(Cond2and)
   );
+  assign customdest = src1;
 
   assign brTaken = CU2and && Cond2and;
   assign val1 = reg1;
-  assign src1 = instruction[20:16];
+  assign src1 = instruction[11:8];
   assign is_imm_out = Is_Imm;
   assign ST_or_BNE_out = ST_or_BNE;
   assign branch_comm = CU2Cond;
