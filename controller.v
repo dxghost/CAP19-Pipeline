@@ -1,15 +1,19 @@
 `include "defines.v"
 
-module controller (opCode, branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE, WB_EN, MEM_R_EN, MEM_W_EN, hazard_detected,custominstruction, jumpEnable);
-
+module controller (opCode, branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE, WB_EN, MEM_R_EN, MEM_W_EN, hazard_detected,custominstruction, jumpEnable, src1, src2, Z, N,clk);
   input hazard_detected;
+  input clk;
   input [`OP_CODE_LEN-1:0] opCode;
   input [15:0] custominstruction;
+  input [`WORD_LEN-1:0] src1, src2;
   output reg branchEn;
   output reg jumpEnable;
   output reg [`EXE_CMD_LEN-1:0] EXE_CMD;
   output reg [1:0] Branch_command;
   output reg Is_Imm, ST_or_BNE, WB_EN, MEM_R_EN, MEM_W_EN;
+  output reg N;
+  output reg Z;
+  integer F;
 
   always @ ( * ) begin
   $monitor("instruction is %b : ",custominstruction);
@@ -35,8 +39,14 @@ module controller (opCode, branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE,
         // `OP_LD: begin EXE_CMD <= `EXE_ADD; WB_EN <= 1; Is_Imm <= 1; ST_or_BNE <= 1; MEM_R_EN <= 1; end
         // `OP_ST: begin EXE_CMD <= `EXE_ADD; Is_Imm <= 1; MEM_W_EN <= 1; ST_or_BNE <= 1; end
         // branch operations
-        // `OP_BEZ: begin EXE_CMD <= `EXE_NO_OPERATION; Is_Imm <= 1; Branch_command <= `COND_BEZ; branchEn <= 1; end
-        `OP_BNE: begin EXE_CMD <= `EXE_NO_OPERATION; Is_Imm <= 1; Branch_command <= `COND_BNE; branchEn <= 1; ST_or_BNE <= 1; end
+      `OP_CMP: 
+        begin 
+          F = src1 - src2;
+          if (F == 0) begin $display("***"); Z = 1'b1;end
+          else if (F < 0) N = 1'b1;
+          else if (F > 0) begin Z = 1'b0; N = 1'b0;end
+        end
+        `OP_BNE: begin EXE_CMD <= `EXE_NO_OPERATION; Is_Imm <= 1; Branch_command <= `COND_BNE; branchEn <= 1; end
         `OP_JMP: begin EXE_CMD <= `EXE_NO_OPERATION; Is_Imm <= 1; Branch_command <= `COND_JUMP; branchEn <= 1; jumpEnable <= 1; end
         default: {branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE, WB_EN, MEM_R_EN, MEM_W_EN,jumpEnable} <= 0;
       endcase
@@ -45,5 +55,7 @@ module controller (opCode, branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE,
     else if (hazard_detected ==  1) begin
       {EXE_CMD, WB_EN, MEM_W_EN} <= 0;
     end
+    $display("Z value : ", Z);
+    $display("N value : ", N);
   end
 endmodule // controller

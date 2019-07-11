@@ -14,23 +14,28 @@ module IDStage (clk,SLLAmount, rst, hazard_detected_in, is_imm_out, ST_or_BNE_ou
   wire [1:0] CU2Cond;
   wire Is_Imm, ST_or_BNE;
   wire [`WORD_LEN-1:0] signExt2Mux;
-  wire jumpEnableWire;
+  wire jumpEnableWire,BNE_EnableWire;
+  wire Z_wire;
 
   controller controller(
     // INPUT
     .opCode(instruction[15:12]),
     .branchEn(CU2and),
     .custominstruction(instruction),
+    .src1(reg1),
+    .src2(reg2),
     // OUTPUT
     .jumpEnable(jumpEnable),
     .EXE_CMD(EXE_CMD),
     .Branch_command(CU2Cond),
     .Is_Imm(Is_Imm),
+    .Z(Z_wire),
     .ST_or_BNE(ST_or_BNE),
     .WB_EN(WB_EN),
     .MEM_R_EN(MEM_R_EN),
     .MEM_W_EN(MEM_W_EN),
-    .hazard_detected(hazard_detected_in)
+    .hazard_detected(hazard_detected_in),
+    .clk(clk)
   );
 
   mux #(.LENGTH(`REG_FILE_ADDR_LEN)) mux_src2 ( // determins the register source 2 for register file
@@ -61,6 +66,7 @@ module IDStage (clk,SLLAmount, rst, hazard_detected_in, is_imm_out, ST_or_BNE_ou
   );
 
   conditionChecker conditionChecker (
+    .Z(Z_wire),
     .reg1(reg1),
     .reg2(reg2),
     .cuBranchComm(CU2Cond),

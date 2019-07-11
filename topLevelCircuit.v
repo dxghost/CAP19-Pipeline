@@ -25,7 +25,7 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 	wire [`REG_FILE_ADDR_LEN-1:0] wire_customdest3;
 	wire [`REG_FILE_ADDR_LEN-1:0] wire_customdest4;
 	wire [7:0] SLLAmount;
-	wire jumpEnable;
+	wire jumpEnable, BNE_Enable;
 
 	regFile regFile(
 		// INPUTS
