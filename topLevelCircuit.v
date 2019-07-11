@@ -24,6 +24,7 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 	wire [`REG_FILE_ADDR_LEN-1:0] wire_customdest2;
 	wire [`REG_FILE_ADDR_LEN-1:0] wire_customdest3;
 	wire [`REG_FILE_ADDR_LEN-1:0] wire_customdest4;
+	wire [7:0] SLLAmount;
 
 	regFile regFile(
 		// INPUTS
@@ -108,11 +109,13 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		.is_imm_out(is_imm),
 		.ST_or_BNE_out(ST_or_BNE),
 		.branch_comm(branch_comm),
-		.customdest(wire_customdest1)
+		.customdest(wire_customdest1),
+		.SLLAmount(SLLAmount)
 	);
 
 	EXEStage EXEStage (
 		// INPUTS
+		.SLLAmount(SLLAmount),
 		.clk(clock),
 		.EXE_CMD(EXE_CMD_EXE),
 		.val1_sel(val1_sel),

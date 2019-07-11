@@ -1,6 +1,6 @@
 `include "defines.v"
 
-module IDStage (clk, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruction, reg1, reg2, src1, src2_reg_file, src2_forw, val1, val2, brTaken, EXE_CMD, MEM_R_EN, MEM_W_EN, WB_EN, branch_comm,customdest);
+module IDStage (clk,SLLAmount, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruction, reg1, reg2, src1, src2_reg_file, src2_forw, val1, val2, brTaken, EXE_CMD, MEM_R_EN, MEM_W_EN, WB_EN, branch_comm,customdest);
   input clk, rst, hazard_detected_in;
   input [`WORD_LEN-1:0] instruction, reg1, reg2;
   output brTaken, MEM_R_EN, MEM_W_EN, WB_EN, is_imm_out, ST_or_BNE_out;
@@ -9,6 +9,7 @@ module IDStage (clk, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruc
   output [`REG_FILE_ADDR_LEN-1:0] src1, src2_reg_file, src2_forw;
   output [`WORD_LEN-1:0] val1, val2;
   output [`REG_FILE_ADDR_LEN-1:0] customdest;
+  output [7:0] SLLAmount;
   wire CU2and, Cond2and;
   wire [1:0] CU2Cond;
   wire Is_Imm, ST_or_BNE;
@@ -63,9 +64,7 @@ module IDStage (clk, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruc
     .cuBranchComm(CU2Cond),
     .brCond(Cond2and)
   );
-  always @ ( val2 ) begin
-    $monitor("Mux output is : ",val2);
-  end
+
   assign customdest = src1;
 
   assign brTaken = CU2and && Cond2and;
@@ -74,4 +73,5 @@ module IDStage (clk, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruc
   assign is_imm_out = Is_Imm;
   assign ST_or_BNE_out = ST_or_BNE;
   assign branch_comm = CU2Cond;
+  assign SLLAmount = signExt2Mux;
 endmodule // IDStage

@@ -45,7 +45,6 @@
 // `define OP_BNE 6'b101001
 // `define OP_JMP 6'b101010
 
-`define OP_NOP 4'b1111 //no op
 `define OP_ADD 4'b0000
 `define OP_ADD_BASE 4'b0001
 `define OP_SUB 4'b0010
@@ -61,7 +60,7 @@
 `define OP_MOVI 4'b1100
 `define OP_CMP 4'b1101
 `define OP_BNE 4'b1110
-// `define OP_JMP 4'b1111 //TODO add
+`define OP_JMP 4'b1111
 // `define OP_OR 6'b000110
 // `define OP_NOR 6'b000111
 // `define OP_XOR 6'b001000
@@ -69,8 +68,8 @@
 // `define OP_SRA 6'b001011
 // `define OP_SRL 6'b001100
 // `define OP_SUBI 6'b100001
-`define OP_LD 6'b100100
-`define OP_ST 6'b100101
+// `define OP_LD 6'b100100
+// `define OP_ST 6'b100101
 // `define OP_BEZ 6'b101000
 // `define OP_JMP 6'b101010
 
@@ -85,6 +84,7 @@
 `define EXE_SLL 4'b1000
 `define EXE_SRA 4'b1001
 `define EXE_SRL 4'b1010
+`define EXE_MULT 4'b1011
 `define EXE_NO_OPERATION 4'b1111 // for NOP, BEZ, BNQ, JMP
 
 // To be used in conditionChecker
