@@ -38,6 +38,7 @@ module controller (opCode, branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE,
         `OP_LW: begin EXE_CMD <= `EXE_ADD; WB_EN <= 1; Is_Imm <= 1; ST_or_BNE <= 1; MEM_R_EN <= 1; end
         `OP_SW: begin EXE_CMD <= `EXE_NO_OPERATION; Is_Imm <= 1; MEM_W_EN <= 1; ST_or_BNE <= 1; end
         `OP_CLR: begin EXE_CMD <= `EXE_CLR; WB_EN <= 1;Is_Imm<=1;end
+        `OP_MOVI: begin EXE_CMD <= `EXE_MOVI;WB_EN <=1;Is_Imm<=1;end
         // branch operations
       `OP_CMP: 
         begin 

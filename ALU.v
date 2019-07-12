@@ -25,6 +25,7 @@ module ALU (val1, val2, EXE_CMD, aluOut,SLLAmount);
           aluOut = val1 << SLLAmount;
         end
        // `EXE_SLL: aluOut <= val1 <<< val2;
+      `EXE_MOVI: aluOut <= val2;
       `EXE_SRA: aluOut <= val1 >> val2;
       `EXE_SRL: aluOut <= val1 >>> val2;
       `EXE_MULT: begin multProduct = val1 *val2; HI = multProduct[31:16]; LO = multProduct[15:0];end 

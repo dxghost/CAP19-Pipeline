@@ -86,6 +86,7 @@
 `define EXE_SRL 4'b1010
 `define EXE_MULT 4'b1011
 `define EXE_CLR 4'b0011
+`define EXE_MOVI 4'b1100
 `define EXE_NO_OPERATION 4'b1111 // for NOP, BEZ, BNQ, JMP
 
 // To be used in conditionChecker

@@ -26,20 +26,30 @@ module instructionMem (rst, addr, instruction);
         instMem[18] <= 4'b0000;
         instMem[19] <= 4'b0011;
 
-        instMem[24] <= 4'b1001; //-- SW A1, A2, 0
-        instMem[25] <= 4'b0011; // data = A1 , Address = A2 , Offset : 0
-        instMem[26] <= 4'b1100;
-        instMem[27] <= 4'b1111;
+        instMem[20] <= 4'b1100; //-- MOV A3,17
+        instMem[21] <= 4'b0011;
+        instMem[22] <= 4'b0001;
+        instMem[23] <= 4'b0001;
+
+        instMem[24] <= 4'b0000; //-- Add A2,A3
+        instMem[25] <= 4'b0010;
+        instMem[26] <= 4'b0011;
+        instMem[27] <= 4'b0000;
+
+        // instMem[24] <= 4'b1001; //-- SW A1, A2, 0
+        // instMem[25] <= 4'b0011; // data = A1 , Address = A2 , Offset : 0
+        // instMem[26] <= 4'b1100;
+        // instMem[27] <= 4'b1111;
         
         // instMem[28] <= 4'b1011; //-- CLR A3
         // instMem[29] <= 4'b0011; 
         // instMem[30] <= 4'b0000;
         // instMem[31] <= 4'b0000;
 
-        instMem[32] <= 4'b0011; //-- Add A3, 10
-        instMem[33] <= 4'b0011;
-        instMem[34] <= 4'b0000;
-        instMem[35] <= 4'b0000;
+        // instMem[32] <= 4'b0011; //-- Add A3, 10
+        // instMem[33] <= 4'b0011;
+        // instMem[34] <= 4'b0000;
+        // instMem[35] <= 4'b0000;
 
         // instMem[40] <= 4'b0111; //-- LW A3, A2
         // instMem[41] <= 4'b0011; // register = A3
