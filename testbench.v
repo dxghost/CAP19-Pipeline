@@ -6,7 +6,7 @@ module testbench ();
 
   initial begin
     clk=1;
-    repeat(30)
+    repeat(100)
     begin
       #50 clk=~clk ;
     end
