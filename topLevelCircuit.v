@@ -150,6 +150,7 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 
 	WBStage WBStage (
 		// INPUTS
+		.clk(clock),
 		.MEM_R_EN(MEM_R_EN_WB),
 		.memData(dataMem_out_WB),
 		.aluRes(ALURes_WB),
