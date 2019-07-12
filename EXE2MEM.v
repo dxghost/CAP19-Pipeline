@@ -2,13 +2,16 @@
 
 module EXE2MEM (clk, rst, WB_EN_IN, MEM_R_EN_IN, MEM_W_EN_IN, PCIn, ALUResIn, STValIn, destIn,
                           WB_EN,    MEM_R_EN,    MEM_W_EN,    PC,   ALURes,   STVal,   dest,
-                          customdestin,customdest);
+                          customdestin,customdest,
+                          instructionIn,instructionOut);
   input clk, rst;
   // TO BE REGISTERED FOR ID STAGE
   input WB_EN_IN, MEM_R_EN_IN, MEM_W_EN_IN;
   input [`REG_FILE_ADDR_LEN-1:0] destIn;
   input [`WORD_LEN-1:0] PCIn, ALUResIn, STValIn;
+  input [15:0] instructionIn;
   // REGISTERED VALUES FOR ID STAGE
+  output reg [15:0] instructionOut;
   output reg WB_EN, MEM_R_EN, MEM_W_EN;
   output reg [`REG_FILE_ADDR_LEN-1:0] dest;
   output reg [`WORD_LEN-1:0] PC, ALURes, STVal;
@@ -31,9 +34,11 @@ module EXE2MEM (clk, rst, WB_EN_IN, MEM_R_EN_IN, MEM_W_EN_IN, PCIn, ALUResIn, ST
       MEM_R_EN <= MEM_R_EN_IN;
       MEM_W_EN <= MEM_W_EN_IN;
       PC <= PCIn;
+      instructionOut<=instructionIn;
       ALURes <= ALUResIn;
       STVal <= STValIn;
       dest <= destIn;
     end
   end
+  
 endmodule // EXE2MEM

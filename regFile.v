@@ -34,10 +34,10 @@ module regFile (clk, rst, src1, src2, dest, writeVal, writeEn, reg1, reg2,custom
   // assign reg1 = 4'b0100;
   // assign reg2 = 4'b1001;
 
-  always @(writeEn) begin
-    $display("---------------- REG FILE ----------------");
-      for (i = 0; i < `WORD_LEN; i = i + 1)
-        $display("i = %b\nregMEM[i] = %b\n", i, regMem[i]);
-  end
+  // always @(writeEn) begin
+  //   $display("---------------- REG FILE ----------------");
+  //     for (i = 0; i < `WORD_LEN; i = i + 1)
+  //       $display("i = %b\nregMEM[i] = %b\n", i, regMem[i]);
+  // end
 
 endmodule // regFile

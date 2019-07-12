@@ -19,6 +19,7 @@ module ALU (val1, val2, EXE_CMD, aluOut,SLLAmount);
       `EXE_OR: aluOut <= val1 | val2;
       `EXE_NOR: aluOut <= ~(val1 | val2);
       `EXE_XOR: aluOut <= val1 ^ val2;
+      `EXE_CLR: aluOut <= 16'b0000000000000000;
       `EXE_SLL:
         begin
           aluOut = val1 << SLLAmount;

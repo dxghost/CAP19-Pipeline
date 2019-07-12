@@ -3,7 +3,7 @@
 module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 	wire clock = CLOCK_50;
 	wire [`WORD_LEN-1:0] PC_IF, PC_ID, PC_EXE, PC_MEM;
-	wire [`WORD_LEN-1:0] inst_IF, inst_ID;
+	wire [`WORD_LEN-1:0] inst_IF, inst_ID,inst_EXE, inst_MEM;
 	wire [`WORD_LEN-1:0] reg1_ID, reg2_ID, ST_value_EXE, ST_value_EXE2MEM, ST_value_MEM;
 	wire [`WORD_LEN-1:0] val1_ID, val1_EXE;
 	wire [`WORD_LEN-1:0] val2_ID, val2_EXE;
@@ -142,6 +142,8 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		.MEM_W_EN(MEM_W_EN_MEM),
 		.ALU_res(ALURes_MEM),
 		.ST_value(ST_value_MEM),
+		.PC(PC_MEM),
+		.instructionIn(inst_MEM),
 		// OUTPUTS
 		.dataMem_out(dataMem_out_MEM)
 	);
@@ -188,6 +190,7 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		.WB_EN_IN(WB_EN_ID),
 		.brTaken_in(Br_Taken_ID),
 		.customdestin(wire_customdest1),
+		.instructionIn(inst_ID),
 		// OUTPUTS
 		.customdest(wire_customdest2),
 		.src1_out(src1_forw_EXE),
@@ -201,7 +204,8 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		.MEM_R_EN(MEM_R_EN_EXE),
 		.MEM_W_EN(MEM_W_EN_EXE),
 		.WB_EN(WB_EN_EXE),
-		.brTaken_out(Br_Taken_EXE)
+		.brTaken_out(Br_Taken_EXE),
+		.instructionOut(inst_EXE)
 	);
 
 	EXE2MEM EXE2MEMReg (
@@ -216,6 +220,7 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		.STValIn(ST_value_EXE2MEM),
 		.destIn(dest_EXE),
 		.customdestin(wire_customdest2),
+		.instructionIn(inst_EXE),
 		// OUTPUTS
 		.customdest(wire_customdest3),
 		.WB_EN(WB_EN_MEM),
@@ -224,7 +229,8 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		.PC(PC_MEM),
 		.ALURes(ALURes_MEM),
 		.STVal(ST_value_MEM),
-		.dest(dest_MEM)
+		.dest(dest_MEM),
+		.instructionOut(inst_MEM)
 	);
 
 	MEM2WB MEM2WB(
