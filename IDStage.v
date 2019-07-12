@@ -86,9 +86,9 @@ module IDStage (clk,SLLAmount, rst, hazard_detected_in, is_imm_out, ST_or_BNE_ou
   assign SLLAmount = signExt2Mux;
 
 
-  always @(clk) begin
+  always @(posedge clk) begin
     $display("---------------- ID Stage ----------------");
-    $display("brTaken = %b\njumpEnable = %b\nval1 = %b\nsrc1 = %b\ncustomdest = %b\nis_imm_out = %b\ninstruction = %b"
-            , brTaken,jumpEnable,val1,src1,customdest,is_imm_out, instruction);
+    $display("brTaken = %b\njumpEnable = %b\nval1 = %b\nval2 = %b\nsrc1 = %b\ncustomdest = %b\nis_imm_out = %b\ninstruction = %b\nreg1 = %b\nreg2 = %b"
+            , brTaken,jumpEnable,val1,val2, src1,customdest,is_imm_out, instruction,reg1, reg2);
   end
 endmodule // IDStage

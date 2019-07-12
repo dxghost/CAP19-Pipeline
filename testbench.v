@@ -9,8 +9,11 @@ module testbench ();
     repeat(30)
     begin
       #50 clk=~clk ;
-      $display("\n\n#################################### clock changed ####################################");
     end
+  end
+
+  always @(posedge clk) begin
+    $display("\n\n#################################### clock changed ####################################");
   end
 
   initial begin

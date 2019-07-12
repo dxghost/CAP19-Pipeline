@@ -41,7 +41,7 @@ module EXEStage (clk,SLLAmount, EXE_CMD, val1_sel, val2_sel, ST_val_sel, val1, v
     .EXE_CMD(EXE_CMD),
     .aluOut(ALUResult)
   );
-  always @(clk) begin
+  always @(posedge clk) begin
     $display("---------------- EXE Stage ----------------");
     $display("ALUResult = %b\nST_value_out  = %b", ALUResult, ST_value_out);
   end

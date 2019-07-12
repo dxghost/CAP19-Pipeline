@@ -18,4 +18,8 @@ module dataMem (clk, rst, writeEn, readEn, address, dataIn, dataOut);
   end
   assign base_address = ((address & 16'b1111101111111111) >> 1) << 1;
   assign dataOut = (address < 1024) ? 0 : {dataMem[base_address], dataMem[base_address + 1], dataMem[base_address + 2], dataMem[base_address + 3]};
+  always @(*) begin
+    $display("---------------- Data Memory ----------------");
+    $display("writeEn = %b\nreadEn = %b\naddress = %b\ndataIn = %b\ndataOut = %b", writeEn, readEn, address, dataIn, dataOut);
+  end
 endmodule // dataMem

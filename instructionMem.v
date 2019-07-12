@@ -71,7 +71,7 @@ module instructionMem (rst, addr, instruction);
     end
 
   assign instruction = {instMem[address], instMem[address + 1], instMem[address + 2], instMem[address + 3]};
-  always @(addr) begin
+  always @(instruction) begin
       $display("---------------- Istruction Memory ----------------");
       $display("|Instruction = %b   |\n|PC          = %\d              |", instruction,addr);
   end
