@@ -5,7 +5,7 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 	wire [`WORD_LEN-1:0] PC_IF, PC_ID, PC_EXE, PC_MEM;
 	wire [`WORD_LEN-1:0] inst_IF, inst_ID,inst_EXE, inst_MEM;
 	wire [`WORD_LEN-1:0] reg1_ID, reg2_ID, ST_value_EXE, ST_value_EXE2MEM, ST_value_MEM;
-	wire [`WORD_LEN-1:0] val1_ID, val1_EXE;
+	wire [`WORD_LEN-1:0] val1_ID, val1_EXE, val1_MEM, val1_WB;
 	wire [`WORD_LEN-1:0] val2_ID, val2_EXE;
 	wire [`WORD_LEN-1:0] ALURes_EXE, ALURes_MEM, ALURes_WB;
 	wire [`WORD_LEN-1:0] dataMem_out_MEM, dataMem_out_WB;
@@ -26,6 +26,7 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 	wire [`REG_FILE_ADDR_LEN-1:0] wire_customdest4;
 	wire [7:0] SLLAmount;
 	wire jumpEnable, BNE_Enable;
+	wire add_base_ID,add_base_EXE,add_base_MEM, add_base_WB;
 
 	regFile regFile(
 		// INPUTS
@@ -55,6 +56,7 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		.WB_EN_EXE(WB_EN_EXE),
 		.WB_EN_MEM(WB_EN_MEM),
 		.MEM_R_EN_EXE(MEM_R_EN_EXE),
+		.is_add_base(add_base_ID),
 		// OUTPUTS
 		.branch_comm(branch_comm),
 		.hazard_detected(hazard_detected)
@@ -113,7 +115,8 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		.ST_or_BNE_out(ST_or_BNE),
 		.branch_comm(branch_comm),
 		.customdest(wire_customdest1),
-		.SLLAmount(SLLAmount)
+		.SLLAmount(SLLAmount),
+		.is_add_base(add_base_ID)
 	);
 
 	EXEStage EXEStage (
@@ -154,6 +157,8 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		.MEM_R_EN(MEM_R_EN_WB),
 		.memData(dataMem_out_WB),
 		.aluRes(ALURes_WB),
+		.val1In(val1_WB),
+		.add_base_in(add_base_WB),
 		// OUTPUTS
 		.WB_res(WB_result)
 	);
@@ -192,6 +197,7 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		.brTaken_in(Br_Taken_ID),
 		.customdestin(wire_customdest1),
 		.instructionIn(inst_ID),
+		.add_base_in(add_base_ID),
 		// OUTPUTS
 		.customdest(wire_customdest2),
 		.src1_out(src1_forw_EXE),
@@ -206,7 +212,9 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		.MEM_W_EN(MEM_W_EN_EXE),
 		.WB_EN(WB_EN_EXE),
 		.brTaken_out(Br_Taken_EXE),
-		.instructionOut(inst_EXE)
+		.instructionOut(inst_EXE),
+		.add_base_out(add_base_EXE)
+		
 	);
 
 	EXE2MEM EXE2MEMReg (
@@ -222,6 +230,8 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		.destIn(dest_EXE),
 		.customdestin(wire_customdest2),
 		.instructionIn(inst_EXE),
+		.val1In(val1_EXE),
+		.add_base_in(add_base_EXE),
 		// OUTPUTS
 		.customdest(wire_customdest3),
 		.WB_EN(WB_EN_MEM),
@@ -231,7 +241,9 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		.ALURes(ALURes_MEM),
 		.STVal(ST_value_MEM),
 		.dest(dest_MEM),
-		.instructionOut(inst_MEM)
+		.instructionOut(inst_MEM),
+		.val1Out(val1_MEM),
+		.add_base_out(add_base_MEM)
 	);
 
 	MEM2WB MEM2WB(
@@ -244,12 +256,16 @@ module MIPS_Processor (input CLOCK_50, input rst, input forward_EN);
 		.memReadValIn(dataMem_out_MEM),
 		.destIn(dest_MEM),
 		.customdestin(wire_customdest3),
+		.add_base_in(add_base_MEM),
+		.val1In(val1_MEM),
 		// OUTPUTS
 		.WB_EN(WB_EN_WB),
 		.MEM_R_EN(MEM_R_EN_WB),
 		.ALURes(ALURes_WB),
 		.memReadVal(dataMem_out_WB),
-		.dest(wire_customdest4)
+		.dest(wire_customdest4),
+		.add_base_out(add_base_WB),
+		.val1Out(val1_WB)
 	);
 
 	assign IF_Flush = Br_Taken_ID;

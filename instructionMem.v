@@ -31,10 +31,22 @@ module instructionMem (rst, addr, instruction);
         instMem[22] <= 4'b0001;
         instMem[23] <= 4'b0001;
 
-        instMem[24] <= 4'b0000; //-- Add A2,A3
-        instMem[25] <= 4'b0010;
-        instMem[26] <= 4'b0011;
-        instMem[27] <= 4'b0000;
+        instMem[24] <= 4'b1001; //-- SW A3,25
+        instMem[25] <= 4'b0011;
+        instMem[26] <= 4'b0001;
+        instMem[27] <= 4'b1001;
+
+
+        // instMem[24] <= 4'b0000; //-- Add A2,A3
+        // instMem[25] <= 4'b0010;
+        // instMem[26] <= 4'b0011; 17 + 11 = 28(11100)
+        // instMem[27] <= 4'b0000;
+
+        instMem[28] <= 4'b0001; //-- AddB A2,25
+        instMem[29] <= 4'b0010;
+        instMem[30] <= 4'b0001;
+        instMem[31] <= 4'b1001;
+
 
         // instMem[24] <= 4'b1001; //-- SW A1, A2, 0
         // instMem[25] <= 4'b0011; // data = A1 , Address = A2 , Offset : 0
