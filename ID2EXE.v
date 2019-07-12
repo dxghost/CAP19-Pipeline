@@ -44,8 +44,4 @@ module ID2EXE (clk, rst, destIn, reg2In, val1In, val2In, PCIn, EXE_CMD_IN, MEM_R
       
     end
   end
-
-  always @(ST_value) begin
-    $display("ST_value is %b in ID2EXE : ", ST_value);
-  end
 endmodule // ID2EXE

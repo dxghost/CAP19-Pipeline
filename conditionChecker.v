@@ -12,6 +12,5 @@ module conditionChecker (reg1, reg2, cuBranchComm, brCond, Z);
       `COND_BNE: brCond <= (Z == 0) ? 1 : 0;
       default: brCond <= 0;
     endcase
-    $display("Z is:%b",Z);
   end
 endmodule // conditionChecker
