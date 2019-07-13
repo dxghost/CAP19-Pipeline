@@ -1,6 +1,6 @@
 `include "defines.v"
 
-module controller (opCode, branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE, WB_EN, MEM_R_EN, MEM_W_EN, hazard_detected,custominstruction, jumpEnable, src1, src2, Z, N,clk);
+module controller (opCode, branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE, WB_EN, MEM_R_EN, MEM_W_EN, hazard_detected,custominstruction, jumpEnable, src1, src2, Z, N,clk,is_add_base);
   input hazard_detected;
   input clk;
   input [`OP_CODE_LEN-1:0] opCode;
@@ -13,10 +13,10 @@ module controller (opCode, branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE,
   output reg Is_Imm, ST_or_BNE, WB_EN, MEM_R_EN, MEM_W_EN;
   output reg N;
   output reg Z;
+  output reg is_add_base;
   integer F;
 
   always @ ( * ) begin
-  $monitor("instruction is %b : ",custominstruction);
     if (hazard_detected == 0) begin
       {branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE, WB_EN, MEM_R_EN, MEM_W_EN} <= 0;
       case (opCode)
@@ -37,26 +37,28 @@ module controller (opCode, branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE,
         // `OP_SUBI: begin EXE_CMD <= `EXE_SUB; WB_EN <= 1; Is_Imm <= 1; end
         // memory operations
         `OP_LW: begin EXE_CMD <= `EXE_ADD; WB_EN <= 1; Is_Imm <= 1; ST_or_BNE <= 1; MEM_R_EN <= 1; end
-        `OP_SW: begin EXE_CMD <= `EXE_ADD; Is_Imm <= 1; MEM_W_EN <= 1; ST_or_BNE <= 1; end
+        `OP_SW: begin EXE_CMD <= `EXE_NO_OPERATION; Is_Imm <= 1; MEM_W_EN <= 1; ST_or_BNE <= 1; end
+        `OP_CLR: begin EXE_CMD <= `EXE_CLR; WB_EN <= 1;Is_Imm<=1;end
+        `OP_MOVI: begin EXE_CMD <= `EXE_MOVI;WB_EN <=1;Is_Imm<=1;end
+        `OP_ADD_BASE: begin EXE_CMD <= `EXE_ADD;WB_EN <=1;Is_Imm<=1;is_add_base<=1;ST_or_BNE <= 1; MEM_R_EN <= 1;end
+
         // branch operations
       `OP_CMP: 
         begin 
           F = src1 - src2;
-          if (F == 0)     begin $display("1"); Z = 1'b1;end
-          else if (F < 0) begin $display("2"); N = 1'b1; Z = 1'b0;end
-          else if (F > 0) begin $display("3"); Z = 1'b0; N = 1'b0;end
+          if (F == 0)     begin Z = 1'b1;end
+          else if (F < 0) begin N = 1'b1; Z = 1'b0;end
+          else if (F > 0) begin Z = 1'b0; N = 1'b0;end
           
         end
         `OP_BNE: begin EXE_CMD <= `EXE_NO_OPERATION; Is_Imm <= 1; Branch_command <= `COND_BNE; branchEn <= 1; end
         `OP_JMP: begin EXE_CMD <= `EXE_NO_OPERATION; Is_Imm <= 1; Branch_command <= `COND_JUMP; branchEn <= 1; jumpEnable <= 1; end
-        default: {branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE, WB_EN, MEM_R_EN, MEM_W_EN,jumpEnable} <= 0;
+        default: {branchEn, EXE_CMD, Branch_command, Is_Imm, ST_or_BNE, WB_EN, MEM_R_EN, MEM_W_EN,jumpEnable,is_add_base} <= 0;
       endcase
     end
 
     else if (hazard_detected ==  1) begin
       {EXE_CMD, WB_EN, MEM_W_EN} <= 0;
     end
-    $display("Z value : ", Z);
-    $display("N value : ", N);
   end
 endmodule // controller

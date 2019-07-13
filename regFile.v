@@ -20,15 +20,9 @@ module regFile (clk, rst, src1, src2, dest, writeVal, writeEn, reg1, reg2,custom
 
     else if (writeEn)
       begin
-      // $monitor("writeEn is enabled");
-      regMem[dest] = writeVal;
-      $display("################ RegFile start ###############\ninstruction = %b,\n src1 = %b, val = %b\n src2 = %b, val = %b\n dest = %b, val = %b\n writeVal = %b\nwriteEn = %b\n############# Regfile end #############",
-    custominstruction,src1,regMem[src1],src2,regMem[src2],dest,regMem[dest],writeVal,writeEn);
+      regMem[dest] = writeVal;    
       end
     regMem[0] = 0;
-
-    // $display("################ RegFile start ###############\ninstruction = %b,\n src1 = %b, val = %b\n src2 = %b, val = %b\n dest = %b, val = %b\n writeVal = %b\nwriteEn = %b\n############# Regfile end #############",
-    // custominstruction,src1,regMem[src1],src2,regMem[src2],dest,regMem[dest],writeVal,writeEn);
 
   end
 
@@ -39,5 +33,11 @@ module regFile (clk, rst, src1, src2, dest, writeVal, writeEn, reg1, reg2,custom
   
   // assign reg1 = 4'b0100;
   // assign reg2 = 4'b1001;
+
+  // always @(posedge clk) begin
+  //   $display("---------------- REG FILE ----------------");
+  //     for (i = 0; i < `WORD_LEN; i = i + 1)
+  //       $display("i = %b\nregMEM[i] = %b\n", i, regMem[i]);
+  // end
 
 endmodule // regFile

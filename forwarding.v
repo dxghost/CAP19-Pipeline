@@ -16,10 +16,10 @@ module forwarding_EXE (src1_EXE, src2_EXE, ST_src_EXE, dest_MEM, dest_WB, WB_EN_
     else if (WB_EN_WB && ST_src_EXE == dest_WB) ST_val_sel <= 2'd2;
 
     // determining forwarding control signal for ALU val1
-    if (WB_EN_MEM && src1_EXE == dest_MEM)begin val1_sel <= 2'd1;$display("man omadam1");end
-    else if (WB_EN_WB && src1_EXE == dest_WB)begin val1_sel <= 2'd2;$display("man omadam2");end
+    if (WB_EN_MEM && src1_EXE == dest_MEM)begin val1_sel <= 2'd1;end
+    else if (WB_EN_WB && src1_EXE == dest_WB)begin val1_sel <= 2'd2;end
     // determining forwarding control signal for ALU val2
-    if (WB_EN_MEM && src2_EXE == dest_MEM)begin val2_sel <= 2'd1;$display("kire khar1");end
-    else if (WB_EN_WB && src2_EXE == dest_WB)begin val2_sel <= 2'd2;$display("kire khar2");end
+    if (WB_EN_MEM && src2_EXE == dest_MEM)begin val2_sel <= 2'd1;end
+    else if (WB_EN_WB && src2_EXE == dest_WB)begin val2_sel <= 2'd2;end
   end
 endmodule // forwarding

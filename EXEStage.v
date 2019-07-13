@@ -7,7 +7,6 @@ module EXEStage (clk,SLLAmount, EXE_CMD, val1_sel, val2_sel, ST_val_sel, val1, v
   input [`WORD_LEN-1:0] val1, val2, ALU_res_MEM, result_WB, ST_value_in;
   input [7:0] SLLAmount;
   output [`WORD_LEN-1:0] ALUResult, ST_value_out;
-
   wire [`WORD_LEN-1:0] ALU_val1, ALU_val2;
 
   mux_3input #(.LENGTH(`WORD_LEN)) mux_val1 (
@@ -42,7 +41,8 @@ module EXEStage (clk,SLLAmount, EXE_CMD, val1_sel, val2_sel, ST_val_sel, val1, v
     .aluOut(ALUResult)
   );
 
-  always @(ST_value_in) begin
-    $display("ST_value_in is %b in EXE STAGE : ", ST_value_in);
+  always @(posedge clk) begin
+    $display("---------------- EXE Stage ----------------");
+    $display("val1 = %b\nval2 = %b\nALU_res_MEM = %b\nresult_WB = %b\nST_value_in = %b", val1, val2, ALU_res_MEM, result_WB, ST_value_in);
   end
 endmodule // EXEStage

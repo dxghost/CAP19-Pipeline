@@ -17,7 +17,7 @@
 // `define REG_FILE_SIZE 32
 // `define MEM_CELL_SIZE 8
 
-`define DATA_MEM_SIZE 1024
+`define DATA_MEM_SIZE 256
 `define INSTR_MEM_SIZE 1024
 `define REG_FILE_SIZE 16
 `define MEM_CELL_SIZE 4
@@ -85,6 +85,8 @@
 `define EXE_SRA 4'b1001
 `define EXE_SRL 4'b1010
 `define EXE_MULT 4'b1011
+`define EXE_CLR 4'b0011
+`define EXE_MOVI 4'b1100
 `define EXE_NO_OPERATION 4'b1111 // for NOP, BEZ, BNQ, JMP
 
 // To be used in conditionChecker

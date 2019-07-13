@@ -1,6 +1,6 @@
 `include "defines.v"
 
-module IDStage (clk,SLLAmount, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruction, reg1, reg2, src1, src2_reg_file, src2_forw, val1, val2, brTaken, EXE_CMD, MEM_R_EN, MEM_W_EN, WB_EN, branch_comm,customdest, jumpEnable);
+module IDStage (clk,SLLAmount, rst, hazard_detected_in, is_imm_out, ST_or_BNE_out, instruction, reg1, reg2, src1, src2_reg_file, src2_forw, val1, val2, brTaken, EXE_CMD, MEM_R_EN, MEM_W_EN, WB_EN, branch_comm,customdest, jumpEnable,is_add_base);
   input clk, rst, hazard_detected_in;
   input [`WORD_LEN-1:0] instruction, reg1, reg2;
   output brTaken, MEM_R_EN, MEM_W_EN, WB_EN, is_imm_out, ST_or_BNE_out, jumpEnable;
@@ -16,6 +16,7 @@ module IDStage (clk,SLLAmount, rst, hazard_detected_in, is_imm_out, ST_or_BNE_ou
   wire [`WORD_LEN-1:0] signExt2Mux;
   wire jumpEnableWire,BNE_EnableWire;
   wire Z_wire;
+  output is_add_base;
 
   controller controller(
     // INPUT
@@ -35,7 +36,8 @@ module IDStage (clk,SLLAmount, rst, hazard_detected_in, is_imm_out, ST_or_BNE_ou
     .MEM_R_EN(MEM_R_EN),
     .MEM_W_EN(MEM_W_EN),
     .hazard_detected(hazard_detected_in),
-    .clk(clk)
+    .clk(clk),
+    .is_add_base(is_add_base)
   );
 
   mux #(.LENGTH(`REG_FILE_ADDR_LEN)) mux_src2 ( // determins the register source 2 for register file
@@ -84,4 +86,12 @@ module IDStage (clk,SLLAmount, rst, hazard_detected_in, is_imm_out, ST_or_BNE_ou
   assign ST_or_BNE_out = ST_or_BNE;
   assign branch_comm = CU2Cond;
   assign SLLAmount = signExt2Mux;
+
+
+
+  always @(posedge clk) begin
+    $display("---------------- ID Stage ----------------");
+    $display("brTaken = %b\njumpEnable = %b\nval1 = %b\nval2 = %b\nsrc1 = %b\ncustomdest = %b\nis_imm_out = %b\ninstruction = %b\nreg1 = %b\nreg2 = %b"
+            , brTaken,jumpEnable,val1,val2, src1,customdest,is_imm_out, instruction,reg1, reg2);
+  end
 endmodule // IDStage
